@@ -45,10 +45,14 @@ export default function Home() {
     setIsMounted(true);
   }, []);
 
-  // Saving expense list in localStorage
+  // Calculate total expense when expenseList changes
   useEffect(() => {
     if (expenseList.length > 0 || isMounted) {
       localStorage.setItem("expenses", JSON.stringify(expenseList));
+
+      // Calculate total expense
+      const totalExpense = expenseList.reduce((sum, item) => sum + Number(item.amount), 0);
+      setExpense(totalExpense);
     }
   }, [expenseList]);
 
@@ -58,6 +62,11 @@ export default function Home() {
       localStorage.setItem("balance", balance);
     }
   }, [balance]);
+
+  // ✅ Define addBalance function
+  const addBalance = (amount) => {
+    setBalance((prevBalance) => prevBalance + amount);
+  };
 
   return (
     <div className={styles.container}>
@@ -120,7 +129,8 @@ export default function Home() {
       </Modal>
 
       <Modal isOpen={isOpenBalance} setIsOpen={setIsOpenBalance}>
-        <AddBalanceForm setIsOpen={setIsOpenBalance} setBalance={setBalance} />
+        {/* ✅ Pass addBalance function */}
+        <AddBalanceForm setIsOpen={setIsOpenBalance} addBalance={addBalance} />
       </Modal>
     </div>
   );

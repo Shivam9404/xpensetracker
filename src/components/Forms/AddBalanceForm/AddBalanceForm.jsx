@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import Button from '../../Button/Button.jsx';
 
-export default function AddBalanceForm({ setIsOpen }) {
+export default function AddBalanceForm({ setIsOpen, addBalance }) {
   const { enqueueSnackbar } = useSnackbar();
   const [income, setIncome] = useState('');
 
@@ -14,6 +14,9 @@ export default function AddBalanceForm({ setIsOpen }) {
       enqueueSnackbar('Please enter a valid amount.', { variant: 'error' });
       return;
     }
+
+    addBalance(Number(income));
+    enqueueSnackbar('Balance added successfully!', { variant: 'success' });
 
     setIsOpen(false);
     setIncome('');
