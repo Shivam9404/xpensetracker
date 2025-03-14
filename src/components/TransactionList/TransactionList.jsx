@@ -40,6 +40,7 @@ export default function TransactionList({ transactions, title, editTransactions,
 
     return (
         <div className={styles.transactionsWrapper}>
+            <h3 className={styles.heading}>Recent Transactions</h3> {/* Add this line */}
             {transactions.length > 0 ? (
                 <div className={styles.list}>
                     {currentTransactions.map(transaction => (
