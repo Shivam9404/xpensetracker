@@ -1,38 +1,214 @@
-.App {
+.expense-container {
+  background-color: #3B3B3B;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.title {
+  color: #FFFFFF;
+  margin-left: 20px;
+}
+
+.content {
+  background: #3B3B3B;
+  width: 97%;
+  height: 80%;
+  margin-top: 9px;
+  margin-left: 20px;
+  border-radius: 3px;
+}
+
+.box-one {
+  background: #626262;
+  width: 100%;
+  height: 40%;
+  margin-top: 9px;
+  border-radius: 10px;
+}
+
+.box-two {
+  background: #3B3B3B;
+  width: 100%;
+  height: 45%;
+  margin-top: 9px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.box-two-head {
+  display: flex;
+  justify-content: space-between;
+  color: #FFFFFF;
+  font-style: italic;
+}
+
+.box-two-head h2:last-child {
+  margin-right: 286px;
+}
+
+.recent-teransictions {
+  background: #FFFFFF;
+  width: 4750%;
+  min-height: 10vh;
+  height: auto;
+  border-radius: 10px;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 34vh;
+}
+
+.top-expenses {
+  background: #FFFFFF;
+  width: 500px;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* Parent Container */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Wallet and Expense Cards */
+.wallet-card, .expense-card {
+  background: #808080;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  width: 300px;
+  height: 150px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  margin-top: 12px;
+  margin-left: 20px;
+}
+
+h2 {
   color: white;
+  font-size: 20px;
+  margin-bottom: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.amount {
+  color: #70e000;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.expense-amount {
+  color: #f5b400;
+  font-weight: bold;
+}
+
+/* Buttons */
+.add-income {
+  background: linear-gradient(90deg, #4CAF50, #a3f37e);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.add-expense {
+  background: linear-gradient(90deg, #FF9595 0%, #FF4747 80%, #FF3838 100%);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 15px;
+  margin-right: 50px;
+  margin-top: 200px;
+}
+
+.legend span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.food {
+  color: purple;
+}
+
+.entertainment {
+  color: orange;
+}
+
+.travel {
+  color: yellow;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .expense-container {
+    width: 100%;
+    left: 0;
+    position: relative;
+    padding-top: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .content {
+    width: 95%;
+    margin: auto;
+    height: auto;
+  }
+
+  .box-one, .box-two {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recent-transactions, .top-expenses {
+    width: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wallet-card, .expense-card {
+    width: 90%;
+    margin: auto;
+  }
+
+  .box-two-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .box-two-head h2:last-child {
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto 0 auto;
   }
 }
