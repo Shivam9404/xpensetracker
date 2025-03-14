@@ -1,0 +1,26 @@
+.button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.primary {
+    background-color: #7CFC00; /* Light Green */
+    color: black;
+}
+
+.secondary {
+    background-color: #ff4444; /* Red */
+    color: white;
+}
+
+.shadow {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    opacity: 0.9;
+}
