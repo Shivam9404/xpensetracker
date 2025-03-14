@@ -14,7 +14,6 @@ export default function Home() {
   const [expenseList, setExpenseList] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Show/hide modals
   const [isOpenExpense, setIsOpenExpense] = useState(false);
   const [isOpenBalance, setIsOpenBalance] = useState(false);
 
@@ -31,7 +30,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Check localStorage
     const localBalance = localStorage.getItem("balance");
     if (localBalance) {
       setBalance(Number(localBalance));
@@ -45,25 +43,37 @@ export default function Home() {
     setIsMounted(true);
   }, []);
 
-  // Calculate total expense when expenseList changes
   useEffect(() => {
     if (expenseList.length > 0 || isMounted) {
       localStorage.setItem("expenses", JSON.stringify(expenseList));
-
+  
       // Calculate total expense
       const totalExpense = expenseList.reduce((sum, item) => sum + Number(item.amount), 0);
       setExpense(totalExpense);
+  
+      // Recalculate category-wise spends and counts
+      const newCategorySpends = { food: 0, entertainment: 0, travel: 0 };
+      const newCategoryCount = { food: 0, entertainment: 0, travel: 0 };
+  
+      expenseList.forEach((item) => {
+        if (newCategorySpends[item.category] !== undefined) {
+          newCategorySpends[item.category] += Number(item.amount);
+          newCategoryCount[item.category] += 1;
+        }
+      });
+  
+      setCategorySpends(newCategorySpends);
+      setCategoryCount(newCategoryCount);
     }
   }, [expenseList]);
+  
 
-  // Saving balance in localStorage
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem("balance", balance);
     }
   }, [balance]);
 
-  // ✅ Define addBalance function
   const addBalance = (amount) => {
     setBalance((prevBalance) => prevBalance + amount);
   };
@@ -72,7 +82,6 @@ export default function Home() {
     <div className={styles.container}>
       <h1>Expense Tracker</h1>
 
-      {/* Cards and pie chart wrapper */}
       <div className={styles.cardsWrapper}>
         <Card
           title="Wallet Balance"
@@ -129,8 +138,10 @@ export default function Home() {
       </Modal>
 
       <Modal isOpen={isOpenBalance} setIsOpen={setIsOpenBalance}>
-        {/* ✅ Pass addBalance function */}
-        <AddBalanceForm setIsOpen={setIsOpenBalance} addBalance={addBalance} />
+        <AddBalanceForm
+          setIsOpen={setIsOpenBalance}
+          addBalance={(amount) => setBalance((prev) => prev + amount)}
+        />
       </Modal>
     </div>
   );

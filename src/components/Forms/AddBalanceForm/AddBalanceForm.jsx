@@ -15,12 +15,19 @@ export default function AddBalanceForm({ setIsOpen, addBalance }) {
       return;
     }
 
-    addBalance(Number(income));
+    const amount = Number(income);
+    addBalance(amount);
+
+    // Update localStorage
+    const currentBalance = Number(localStorage.getItem('balance')) || 0;
+    localStorage.setItem('balance', currentBalance + amount);
+
     enqueueSnackbar('Balance added successfully!', { variant: 'success' });
 
     setIsOpen(false);
     setIncome('');
   };
+
 
   return (
     <div className={styles.formWrapper}>
