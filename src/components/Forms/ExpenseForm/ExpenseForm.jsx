@@ -23,6 +23,7 @@ export default function ExpenseForm({ setIsOpen, expenseList, setExpenseList, ed
     
     if (balance < Number(formData.price)) {
       enqueueSnackbar("Price should be less than the wallet balance", { variant: "warning" });
+      setIsOpen(false);
       return;
     }
   
@@ -46,31 +47,35 @@ export default function ExpenseForm({ setIsOpen, expenseList, setExpenseList, ed
     const updatedExpenseList = expenseList.map((item) => {
       if (item.id === editId) {
         const priceDifference = item.price - Number(formData.price);
-        if (Math.abs(priceDifference) > balance) {
+        if (priceDifference > 0 && Math.abs(priceDifference) > balance) {
           enqueueSnackbar("Price should not exceed the wallet balance", { variant: "warning" });
           setIsOpen(false);
-          return item;
+          return { ...item };
         }
-        return { ...item, ...formData };
+        setBalance(prev => prev + priceDifference)
+        return { ...formData, id: editId }
       }
-      return item;
+      else{
+        return item;
+      }
     });
     setExpenseList(updatedExpenseList);
+    setIsOpen(false)
   };
 
   useEffect(() => {
     if (editId) {
       const expenseData = expenseList.find((item) => item.id === editId);
-      if (expenseData) {
+
         setFormData({
           title: expenseData.title,
           category: expenseData.category,
           price: expenseData.price,
           date: expenseData.date
         });
-      }
+      
     }
-  }, [editId, expenseList]);
+  }, [editId]);
 
   return (
     <div className={styles.formWrapper}>
@@ -111,7 +116,7 @@ export default function ExpenseForm({ setIsOpen, expenseList, setExpenseList, ed
           required 
         />
         <Button type="submit" styleType="primary" shadow>{editId ? 'Edit Expense' : 'Add Expense'}</Button>
-        <Button styleType="secondary" shadow onClick={() => setIsOpen(false)}>Cancel</Button>
+        <Button styleType="secondary" shadow handleClick={() => setIsOpen(false)}>Cancel</Button>
       </form>
     </div>
   );
