@@ -18,7 +18,6 @@ export default function AddBalanceForm({ setIsOpen, addBalance }) {
     const amount = Number(income);
     addBalance(amount);
 
-    // Update localStorage
     const currentBalance = Number(localStorage.getItem('balance')) || 0;
     localStorage.setItem('balance', currentBalance + amount);
 
@@ -40,7 +39,7 @@ export default function AddBalanceForm({ setIsOpen, addBalance }) {
           onChange={(e) => setIncome(e.target.value)}
         />
         <Button type="submit">Add</Button>
-        <Button styleType="secondary" onClick={() => setIsOpen(false)}>
+        <Button styleType="secondary" handleClick={() => setIsOpen(false)}>
           Cancel
         </Button>
       </form>

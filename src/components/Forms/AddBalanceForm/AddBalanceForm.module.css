@@ -44,12 +44,12 @@ button {
 }
 
 button[type="submit"] {
-    background: #007bff;
+    background: #d9b41c;
     color: #fff;
 }
 
 button[type="submit"]:hover {
-    background: #0056b3;
+    background: #d9b41c;
 }
 
 button.secondary {
