@@ -3,30 +3,21 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import Button from '../../Button/Button.jsx';
 
-export default function AddBalanceForm({ setIsOpen, addBalance }) {
+export default function AddBalanceForm({ setIsOpen, setBalance }) {
   const { enqueueSnackbar } = useSnackbar();
   const [income, setIncome] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!income || Number(income) < 1) {
-      enqueueSnackbar('Please enter a valid amount.', { variant: 'error' });
+    if (!income || Number(income) <= 0) {
+      enqueueSnackbar('Income should be greater than zero', { variant: 'warning' });
       return;
     }
 
-    const amount = Number(income);
-    addBalance(amount);
-
-    const currentBalance = Number(localStorage.getItem('balance')) || 0;
-    localStorage.setItem('balance', currentBalance + amount);
-
-    enqueueSnackbar('Balance added successfully!', { variant: 'success' });
-
+    setBalance((prev) => prev + Number(income));
     setIsOpen(false);
-    setIncome('');
   };
-
 
   return (
     <div className={styles.formWrapper}>
@@ -36,10 +27,12 @@ export default function AddBalanceForm({ setIsOpen, addBalance }) {
           type="number"
           placeholder="Income Amount"
           value={income}
-          onChange={(e) => setIncome(e.target.value)}
+          onChange={(e) => setIncome(Number(e.target.value) || '')}
         />
-        <Button type="submit">Add</Button>
-        <Button styleType="secondary" handleClick={() => setIsOpen(false)}>
+        <Button type="submit" style="primary" shadow>
+          Add Balance
+        </Button>
+        <Button style="secondary" shadow handleClick={() => setIsOpen(false)}>
           Cancel
         </Button>
       </form>

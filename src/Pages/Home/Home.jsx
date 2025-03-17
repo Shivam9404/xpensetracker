@@ -140,7 +140,7 @@ export default function Home() {
       <Modal isOpen={isOpenBalance} setIsOpen={setIsOpenBalance}>
         <AddBalanceForm
           setIsOpen={setIsOpenBalance}
-          addBalance={(amount) => setBalance((prev) => prev + amount)}
+          setBalance={setBalance}
         />
       </Modal>
     </div>
